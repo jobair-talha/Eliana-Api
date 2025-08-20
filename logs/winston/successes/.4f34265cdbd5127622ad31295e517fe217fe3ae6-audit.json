@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Eliana\\api\\logs\\winston\\successes\\.4f34265cdbd5127622ad31295e517fe217fe3ae6-audit.json",
+    "files": [
+        {
+            "date": 1754158537070,
+            "name": "D:\\Eliana\\api\\logs\\winston\\successes\\phu-2025-03-08-00-success.log",
+            "hash": "2517c7e73c361c516d269a479d0de7d6ff9bba079849fef53486d41bfb9d3fbe"
+        },
+        {
+            "date": 1754199227872,
+            "name": "D:\\Eliana\\api\\logs\\winston\\successes\\phu-2025-03-08-11-success.log",
+            "hash": "53f98eb88d4d66eb1ea17e468c310194ca789852fbab069ecf986344e673ffd8"
+        },
+        {
+            "date": 1754245413970,
+            "name": "D:\\Eliana\\api\\logs\\winston\\successes\\phu-2025-04-08-00-success.log",
+            "hash": "bde12cb2805fed88bcc2334f10d91bd78cf2d989e36037b38e5d75b9c6e25252"
+        }
+    ],
+    "hashType": "sha256"
+}
