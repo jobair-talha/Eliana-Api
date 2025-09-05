@@ -26,6 +26,18 @@ const categorySchema = new Schema<ICategory, CategoryModel>(
             type: String,
             default: "",
         },
+        adsBanner: {
+            type: String,
+            default: "",
+        },
+        metaTitle: {
+            type: String,
+            default: "",
+        },
+        metaDescription: {
+            type: String,
+            default: "",
+        },
         isFeatured: {
             type: Boolean,
             default: false,

@@ -5,6 +5,9 @@ export type ICategory = {
     name: { type: String, required: true },
     slug: { type: String, required: true, unique: true },
     image: { type: String, default: "" },
+    adsBanner: { type: String, default: "" },
+    metaTitle: { type: String, default: "" },
+    metaDescription: { type: String, default: "" },
     isFeatured: { type: Boolean, default: false },
 };
 

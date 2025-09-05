@@ -9,7 +9,9 @@ const createCategory = z.object({
             required_error: "Slug is required!",
         }),
         parentId: z.string().optional(),
-        isFeatured: z.boolean().optional(),
+        isFeatured: z.string().optional(),
+        metaTitle: z.string().optional(),
+        metaDescription: z.string().optional(),
     }),
 });
 
@@ -18,7 +20,9 @@ const updateCategory = z.object({
         name: z.string().optional(),
         slug: z.string().optional(),
         parentId: z.string().optional(),
-        isFeatured: z.boolean().optional(),
+        isFeatured: z.string().optional(),
+        metaTitle: z.string().optional(),
+        metaDescription: z.string().optional(),
     }),
 });
 
