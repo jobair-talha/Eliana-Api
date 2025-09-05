@@ -1,7 +1,5 @@
 import fs from "fs";
-import httpStatus from "http-status";
 import path from "path";
-import ApiError from "../errors/ApiError";
 interface DeleteFile {
     (filePath: string): Promise<boolean>;
 }
@@ -12,8 +10,10 @@ const deleteFile: DeleteFile = async (filePath: string): Promise<boolean> => {
         fs.unlinkSync(paths);
         return true;
     } catch (error) {
-        throw new ApiError(httpStatus.NOT_FOUND, "File not found!");
+        // throw new ApiError(httpStatus.NOT_FOUND, "File not found!");
+        console.log(error)
     }
 };
 
 export { deleteFile };
+
