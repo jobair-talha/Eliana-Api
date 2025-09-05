@@ -6,8 +6,8 @@ import { ENUM_USER_ROLE } from '../../../enums/user';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import { Admin } from '../admin/admin.model';
+import { Student } from '../customer/customer.model';
 import { Faculty } from '../faculty/faculty.model';
-import { Student } from '../student/student.model';
 import { User } from '../user/user.model';
 import {
   IChangePassword,

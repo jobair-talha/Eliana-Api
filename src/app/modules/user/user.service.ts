@@ -7,10 +7,10 @@ import { IAcademicSemester } from '../academicSemester/academicSemester.interfac
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
 import { IAdmin } from '../admin/admin.interface';
 import { Admin } from '../admin/admin.model';
+import { IStudent } from '../customer/customer.interface';
+import { Student } from '../customer/customer.model';
 import { IFaculty } from '../faculty/faculty.interface';
 import { Faculty } from '../faculty/faculty.model';
-import { IStudent } from '../student/student.interface';
-import { Student } from '../student/student.model';
 import { EVENT_FACULTY_CREATED, EVENT_STUDENT_CREATED } from './user.constant';
 import { IUser } from './user.interface';
 import { User } from './user.model';

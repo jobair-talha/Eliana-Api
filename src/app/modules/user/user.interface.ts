@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Model, Types } from 'mongoose';
 import { IAdmin } from '../admin/admin.interface';
+import { ICustomer } from '../customer/customer.interface';
 import { IFaculty } from '../faculty/faculty.interface';
-import { IStudent } from '../student/student.interface';
 
 export type IUser = {
   id: string;
@@ -10,7 +10,7 @@ export type IUser = {
   password: string;
   needsPasswordChange: boolean;
   passwordChangedAt?: Date;
-  student?: Types.ObjectId | IStudent;
+  customer?: Types.ObjectId | ICustomer;
   faculty?: Types.ObjectId | IFaculty;
   admin?: Types.ObjectId | IAdmin;
 };

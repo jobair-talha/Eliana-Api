@@ -5,12 +5,12 @@ import { AcademicSemesterRoutes } from '../modules/academicSemester/academicSeme
 import { AdminRoutes } from '../modules/admin/admin.route';
 import { AuthRoutes } from '../modules/auth/auth.route';
 import { CategoryRoutes } from '../modules/category/category.route';
+import { CustomerRoutes } from '../modules/customer/customer.route';
 import { FacultyRoutes } from '../modules/faculty/faculty.route';
 import { ManagementDepartmentRoutes } from '../modules/managementDepartment/managementDepartment.route';
 import { OrderRoutes } from '../modules/order/order.route';
 import { ProductRoutes } from '../modules/product/product.route';
 import { SliderRoutes } from '../modules/slider/slider.route';
-import { StudentRoutes } from '../modules/student/student.route';
 import { UserRoutes } from '../modules/user/user.route';
 
 const router = express.Router();
@@ -49,8 +49,8 @@ const moduleRoutes = [
     route: ManagementDepartmentRoutes,
   },
   {
-    path: '/students',
-    route: StudentRoutes,
+    path: '/customers',
+    route: CustomerRoutes,
   },
   {
     path: '/faculties',

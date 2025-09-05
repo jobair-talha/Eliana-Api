@@ -27,9 +27,9 @@ const UserSchema = new Schema<IUser, UserModel>(
     passwordChangedAt: {
       type: Date,
     },
-    student: {
+    customer: {
       type: Schema.Types.ObjectId,
-      ref: 'Student',
+      ref: 'Customer',
     },
     faculty: {
       type: Schema.Types.ObjectId,
