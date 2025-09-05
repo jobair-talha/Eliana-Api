@@ -7,6 +7,8 @@ import { AuthRoutes } from '../modules/auth/auth.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { FacultyRoutes } from '../modules/faculty/faculty.route';
 import { ManagementDepartmentRoutes } from '../modules/managementDepartment/managementDepartment.route';
+import { ProductRoutes } from '../modules/product/product.route';
+import { SliderRoutes } from '../modules/slider/slider.route';
 import { StudentRoutes } from '../modules/student/student.route';
 import { UserRoutes } from '../modules/user/user.route';
 
@@ -16,6 +18,14 @@ const moduleRoutes = [
   {
     path: '/categories',
     route: CategoryRoutes,
+  },
+  {
+    path: '/slider',
+    route: SliderRoutes,
+  },
+  {
+    path: '/products',
+    route: ProductRoutes,
   },
   {
     path: '/academic-semesters',
