@@ -56,7 +56,7 @@ const createProduct = z.object({
         slug: z.string().optional(),
         description: z.string().optional(),
         sortDescription: z.string().optional(),
-        sku: z.string({ required_error: "SKU is required!" }),
+        sku: z.string().optional(),
         categories: toStringArray("category"),
         galleryImages: toStringArray("gallery image").optional(),
         thumbnail: z.string({ required_error: "Thumbnail is required!" }).optional(),
