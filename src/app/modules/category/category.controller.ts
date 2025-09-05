@@ -53,12 +53,12 @@ const getCategory = catchAsync(async (req: Request, res: Response) => {
     });
 });
 const updateCategory = catchAsync(async (req: Request, res: Response) => {
-    const { id } = req.params;
+    const { slug } = req.params;
     const { ...categoryData } = req.body;
     if (req.file) {
         categoryData.image = req.file.filename;
     }
-    const result = await CategoryService.updateCategory(id, categoryData);
+    const result = await CategoryService.updateCategory(slug, categoryData);
 
     sendResponse<ICategory>(res, {
         statusCode: httpStatus.OK,

@@ -24,7 +24,7 @@ router.post(
     CategoryController.createCategory
 );
 router.put(
-    "/:id",
+    "/:slug",
     auth(
         ENUM_USER_ROLE.SUPER_ADMIN,
         ENUM_USER_ROLE.ADMIN,

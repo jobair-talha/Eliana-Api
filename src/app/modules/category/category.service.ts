@@ -20,15 +20,15 @@ const createCategory = async (payload: ICategory): Promise<ICategory> => {
     return result;
 };
 
-const updateCategory = async (id: string, payload: ICategory): Promise<ICategory | null> => {
-    const category = await Category.findById(id);
+const updateCategory = async (slug: string, payload: ICategory): Promise<ICategory | null> => {
+    const category = await Category.findOne({ slug });
     if (!category) {
         throw new ApiError(httpStatus.NOT_FOUND, "Category not found");
     }
     if (payload.image && category.image) {
         await deleteFile(`public/images/category/${category.image}`);
     }
-    const result = await Category.findByIdAndUpdate(id, payload, {
+    const result = await Category.findOneAndUpdate({ slug }, payload, {
         new: true,
         runValidators: true,
     });
