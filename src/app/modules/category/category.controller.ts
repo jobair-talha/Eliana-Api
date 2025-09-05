@@ -59,9 +59,14 @@ const getCategory = catchAsync(async (req: Request, res: Response) => {
 const updateCategory = catchAsync(async (req: Request, res: Response) => {
     const { slug } = req.params;
     const { ...categoryData } = req.body;
-    if (req.file) {
-        categoryData.image = req.file.filename;
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
+    if (files?.image?.[0]) {
+        categoryData.image = files.image[0].filename;
     }
+    if (files?.adsBanner?.[0]) {
+        categoryData.adsBanner = files.adsBanner[0].filename;
+    }
+
     const result = await CategoryService.updateCategory(slug, categoryData);
 
     sendResponse<ICategory>(res, {

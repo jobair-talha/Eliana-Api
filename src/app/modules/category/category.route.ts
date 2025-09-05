@@ -30,7 +30,7 @@ router.put(
         ENUM_USER_ROLE.ADMIN,
     ), */
     validateRequest(CategoryValidation.updateCategory),
-    imageUpload.single("image"),
+    imageUpload.fields([{ name: "image", maxCount: 1 }, { name: "adsBanner", maxCount: 1 }]),
     CategoryController.updateCategory
 );
 router.delete(
