@@ -1,7 +1,5 @@
 import express from "express";
-import { ENUM_USER_ROLE } from "../../../enums/user";
 import { FileUpload } from "../../../helpers/fileUpload";
-import auth from "../../middlewares/auth";
 import validateRequest from "../../middlewares/validateRequest";
 import { allowedMimeTypes } from "./category.constants";
 import { CategoryController } from "./category.controller";
@@ -35,10 +33,10 @@ router.put(
 );
 router.delete(
     "/:id",
-    auth(
+    /* auth(
         ENUM_USER_ROLE.SUPER_ADMIN,
         ENUM_USER_ROLE.ADMIN,
-    ),
+    ), */
     validateRequest(CategoryValidation.deleteCategory),
     CategoryController.deleteCategory
 );
