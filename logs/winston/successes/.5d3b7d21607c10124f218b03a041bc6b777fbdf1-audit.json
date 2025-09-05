@@ -1,0 +1,85 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\.5d3b7d21607c10124f218b03a041bc6b777fbdf1-audit.json",
+    "files": [
+        {
+            "date": 1756235114832,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-27-08-01-success.log",
+            "hash": "afc15593a734b6ec251ba016730fce327630af3e1f754e4969570213eb21492a"
+        },
+        {
+            "date": 1756260649770,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-27-08-08-success.log",
+            "hash": "b823f04b604be9b7b96573861b18a95b05e977b4a03ab46260cb86daaabc7fdf"
+        },
+        {
+            "date": 1756263663868,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-27-08-09-success.log",
+            "hash": "3661aeebdd8bb17d785a161a92fecc6e686905e88033453794f2176ecbb548f7"
+        },
+        {
+            "date": 1756666526366,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-01-09-00-success.log",
+            "hash": "e17ea36aa44d4ec2aa59a263944c2ed7d1b4d8b6790e2b28ef878b3df09d93a8"
+        },
+        {
+            "date": 1756666827537,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-01-09-01-success.log",
+            "hash": "958a7ca68e322e1d0889677da0021c16d741cb78c5b2740f04a7d92414896db0"
+        },
+        {
+            "date": 1756752874714,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-02-09-00-success.log",
+            "hash": "f38de22119d7e4b2a81b14711ceee194ee501882a922012325f65dfdc0933d13"
+        },
+        {
+            "date": 1756753406983,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-02-09-01-success.log",
+            "hash": "dc4a37177656c692245dd75269a6316a73907e02d3a2d95747134cad31384a1d"
+        },
+        {
+            "date": 1756756839916,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-02-09-02-success.log",
+            "hash": "1644e076d72fbd29624742609280d72fd629da44322fa1165b9edd8d76bf4d84"
+        },
+        {
+            "date": 1756786760989,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-02-09-10-success.log",
+            "hash": "116000957d2b61ef6ab319d44517219fdc7a2bdf01d614bf1c5a3aeed49fba1a"
+        },
+        {
+            "date": 1756789265541,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-02-09-11-success.log",
+            "hash": "ea2d8cd10cbc3288bfa3ac016d9448c657578a2532bd78033f155dd424b8e7ce"
+        },
+        {
+            "date": 1756924837925,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-04-09-00-success.log",
+            "hash": "ef981939f93055e64f0cd26b3e75941a9b8a816eb99f9f3726ad703981185cd6"
+        },
+        {
+            "date": 1756926403606,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-04-09-01-success.log",
+            "hash": "62e243fb8e8cc94f141ae8935a496ac1ee2c5d1a4e43a8d929645a52d92b510f"
+        },
+        {
+            "date": 1757010885499,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-05-09-00-success.log",
+            "hash": "d92ec6c713b1ffc2ec672ae6ed0c309640b8fd1d7348b2110432724f7d94088e"
+        },
+        {
+            "date": 1757017187767,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-05-09-02-success.log",
+            "hash": "271951dd8863ec33e8493c163f019dc49869a8d97803362db91ac8adab3bfa23"
+        },
+        {
+            "date": 1757045078861,
+            "name": "D:\\Eliana\\Eliana-Api\\logs\\winston\\successes\\phu-2025-05-09-10-success.log",
+            "hash": "76bef4527e0bfca46306f12d9cc0bf9c14fc0cc595e519cef86621afe0d23a70"
+        }
+    ],
+    "hashType": "sha256"
+}
