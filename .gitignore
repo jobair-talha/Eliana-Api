@@ -4,3 +4,5 @@ public/*.*
 !public/.gitkeep
 public/*/*.*
 !public/*/.gitkeep
+logs
+*.log
