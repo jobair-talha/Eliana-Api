@@ -52,7 +52,6 @@ academicSemesterSchema.pre('save', async function (next) {
     title: this.title,
     year: this.year,
   });
-  console.log(isExist)
   if (isExist) {
     throw new ApiError(
       httpStatus.CONFLICT,
