@@ -19,7 +19,7 @@ router.post(
         ENUM_USER_ROLE.SUPER_ADMIN,
         ENUM_USER_ROLE.ADMIN,
     ), */
-    imageUpload.single("image"),
+    imageUpload.fields([{ name: "image", maxCount: 1 }, { name: "adsBanner", maxCount: 1 }]),
     validateRequest(CategoryValidation.createCategory),
     CategoryController.createCategory
 );
