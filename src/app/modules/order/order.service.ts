@@ -8,8 +8,8 @@ const createCustomerOrder = async (orderData: Partial<IOrder>): Promise<IOrder> 
     if (!orderData.user) {
         const user = await User.create({
             name: orderData.customerInfo?.name,
-            email: orderData.customerInfo?.email,
-            mobile: orderData.customerInfo?.mobile,
+            password: "defaultpassword",
+            role: "customer",
         })
         orderData.user = user._id;
     }
