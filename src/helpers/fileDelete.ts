@@ -12,6 +12,7 @@ const deleteFile: DeleteFile = async (filePath: string): Promise<boolean> => {
     } catch (error) {
         // throw new ApiError(httpStatus.NOT_FOUND, "File not found!");
         console.log(error)
+        return false;
     }
 };
 
