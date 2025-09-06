@@ -50,4 +50,4 @@ const categorySchema = new Schema<ICategory, CategoryModel>(
         },
     }
 );
-export const Category = mongoose.model<ICategory, CategoryModel>("category", categorySchema);
+export const Category = mongoose.model<ICategory, CategoryModel>("Category", categorySchema);

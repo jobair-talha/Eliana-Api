@@ -20,6 +20,9 @@ export const nestedCategories = (categories: ICategory[], parentId: string | nul
             image: cate.image,
             isFeatured: cate.isFeatured,
             children: nestedCategories(categories, cate._id?.toString() ?? null),
+            adsBanner: cate.adsBanner,
+            metaTitle: cate.metaTitle,
+            metaDescription: cate.metaDescription,
         });
     }
 
