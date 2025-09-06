@@ -21,6 +21,10 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
         }
     }
     productData.slug = createSlug(productData.name);
+    productData.regularPrice = parseFloat(productData.regularPrice);
+    if (productData.salePrice) {
+        productData.salePrice = parseFloat(productData.salePrice);
+    }
     productData.categories = JSON.parse(productData.categories as unknown as string);
     productData.discount = JSON.parse(productData.discount as unknown as string);
     const result = await ProductService.createProduct(productData);

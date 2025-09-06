@@ -6,6 +6,7 @@ export type IProduct = {
     name: string;
     slug: string;
     description: string;
+    shortDescription: string;
     sku: string;
     categories: Types.ObjectId | ICategory[];
     galleryImages: string[];
@@ -15,6 +16,7 @@ export type IProduct = {
     flashPrice: number;
     discount: ProductDiscount;
     stock: number;
+    stockAlrt: number;
     isInStock: boolean;
     isFeatured: boolean;
     isNewProduct: boolean;

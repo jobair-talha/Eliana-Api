@@ -7,11 +7,12 @@ const productSchema = new Schema<IProduct, ProductModel>({
     slug: { type: String, required: true, unique: true, index: true },
     description: { type: String, default: '' },
     sku: { type: String, required: true, unique: true, index: true },
-    categories: {
+    categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
-    },
+    }],
+    shortDescription: { type: String, default: '' },
     galleryImages: [{ type: String, required: true }],
     thumbnail: { type: String, required: true },
     regularPrice: { type: Number, required: true, default: 0 },
@@ -29,6 +30,7 @@ const productSchema = new Schema<IProduct, ProductModel>({
         }
     },
     stock: { type: Number, required: true, default: 0 },
+    stockAlrt: { type: Number, required: true, default: 0 },
     isInStock: { type: Boolean, required: true, default: true },
     isFeatured: { type: Boolean, required: true, default: false },
     isNewProduct: { type: Boolean, required: true, default: false },

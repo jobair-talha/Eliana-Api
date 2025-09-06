@@ -9,6 +9,7 @@ export const allowedMimeTypes: string[] = [
 export const productFilterableFields = [
     "name",
     "category",
+    "searchTerm",
     "price",
     "brand",
     "rating",

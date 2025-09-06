@@ -9,20 +9,20 @@ import { productSearchableFields } from "./product.contant";
 import { IProduct, IProductFilters } from "./product.interfaces";
 import { Product } from "./product.model";
 
-const createProduct = async (productData: any) => {
-    const existingProduct = await Product.findOne({ $or: [{ slug: productData.slug }, { sku: productData.sku }] });
+const createProduct = async (productData: IProduct) => {
+    const existingProduct = await Product.findOne({ slug: productData.slug });
     if (existingProduct) {
-        throw new ApiError(httpStatus.BAD_REQUEST, "Product with this slug or SKU already exists");
+        throw new ApiError(httpStatus.CONFLICT, "This slug already exists!");
+    }
+    const product = await Product.findOne({ sku: productData.sku });
+    if (product) {
+        throw new ApiError(httpStatus.CONFLICT, "This SKU already exists!");
     }
     const newProduct = await Product.create(productData);
     return newProduct;
 };
 
-const updateProduct = async (productData: any) => {
-    const redisKey = `product:${productData.slug}`;
-    await RedisClient.del(redisKey);
-
-    // Check if the product exists
+const updateProduct = async (productData: IProduct) => {
     const existingProduct = await Product.findOne({ slug: productData.slug });
     if (!existingProduct) {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
@@ -33,17 +33,13 @@ const updateProduct = async (productData: any) => {
 };
 
 const getSingleProductBySlug = async (slug: string) => {
-    const redisKey = `product:${slug}`;
-    const cachedProduct = await RedisClient.get(redisKey);
-    if (cachedProduct) {
-        return JSON.parse(cachedProduct);
-    }
-
-    const product = await Product.findOne({ slug });
+    const product = await Product.findOne({ slug }).populate({
+        path: 'categories',
+        select: 'name slug',
+    });
     if (!product) {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
     }
-    await RedisClient.set(redisKey, JSON.stringify(product), { EX: 3600 });
     return product;
 };
 
@@ -91,6 +87,10 @@ const getAllProducts = async (
         andConditions.length > 0 ? { $and: andConditions } : {};
 
     const result = await Product.find(whereConditions)
+        .populate({
+            path: 'categories',
+            select: 'name slug -_id',
+        })
         .sort(sortConditions)
         .skip(skip)
         .limit(limit);
