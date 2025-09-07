@@ -4,7 +4,6 @@ import ApiError from "../../../errors/ApiError";
 import { paginationHelpers } from "../../../helpers/paginationHelper";
 import { IGenericResponse } from "../../../interfaces/common";
 import { IPaginationOptions } from "../../../interfaces/pagination";
-import { RedisClient } from "../../../shared/redis";
 import { productSearchableFields } from "./product.contant";
 import { IProduct, IProductFilters } from "./product.interfaces";
 import { Product } from "./product.model";
@@ -108,16 +107,9 @@ const getAllProducts = async (
 };
 
 const getHomeProducts = async () => {
-    const redisKey = `products:home`;
-    const cachedProducts = await RedisClient.get(redisKey);
-    if (cachedProducts) {
-        return JSON.parse(cachedProducts);
-    }
-
     const featuredProducts = await Product.find({ isFeatured: true }).sort({ createdAt: -1 }).limit(8);
-    const newProducts = await Product.find({ isNew: true }).sort({ createdAt: -1 }).limit(8);
-    const bestSellingProducts = await Product.find({ isBestSelling: true }).sort({ sellsQuantity: -1 }).limit(8);
-    await RedisClient.set(redisKey, JSON.stringify({ featuredProducts, newProducts, bestSellingProducts }), { EX: 3600 });
+    const newProducts = await Product.find({ isNewProduct: true }).sort({ createdAt: -1 }).limit(8);
+    const bestSellingProducts = await Product.find({}).sort({ sellsQuantity: -1 }).limit(8);
     return { featuredProducts, newProducts, bestSellingProducts };
 };
 
