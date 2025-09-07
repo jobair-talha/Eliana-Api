@@ -15,5 +15,13 @@ router.post(
     validateRequest(OrderValidation.createCustomerOrder),
     OrderController.createCustomerOrder
 );
+router.get(
+    "/",
+    /* auth(
+        ENUM_USER_ROLE.SUPER_ADMIN,
+        ENUM_USER_ROLE.ADMIN,
+    ), */
+    OrderController.getAllOrders
+);
 
 export const OrderRoutes = router;

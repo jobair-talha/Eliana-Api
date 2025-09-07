@@ -32,6 +32,8 @@ export interface IOrder {
     paymentStatus: "pending" | "paid" | "failed" | "refunded";
     payAmount: number;
     remainingPayableAmount: number;
+    discountAmount: number;
+    totalProductsPrice: number;
     deliveryStatus: "pending" | "shipped" | "delivered" | "returned";
     orderStatus:
     | "pending"
