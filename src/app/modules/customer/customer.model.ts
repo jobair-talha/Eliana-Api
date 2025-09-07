@@ -14,8 +14,6 @@ export const CustomerSchema = new Schema<ICustomer, CustomerModel>(
     },
     email: {
       type: String,
-      unique: true,
-      required: true,
     },
     mobile: {
       type: String,
