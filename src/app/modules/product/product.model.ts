@@ -41,7 +41,11 @@ const productSchema = new Schema<IProduct, ProductModel>({
     totalPurchased: { type: Number, required: true, default: 0 },
     sellsQuantity: { type: Number, required: true, default: 0 },
     totalSales: { type: Number, required: true, default: 0 },
-    totalStock: { type: Number, required: true, default: 0 }
+    totalStock: { type: Number, required: true, default: 0 },
+    metaTitle: { type: String, default: '' },
+    metaDescription: { type: String, default: '' },
+    metaKeywords: { type: String, default: '' },
+
 }, {
     timestamps: true,
     toJSON: {

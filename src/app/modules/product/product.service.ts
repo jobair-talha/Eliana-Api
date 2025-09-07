@@ -28,7 +28,7 @@ const updateProduct = async (productData: IProduct) => {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
     }
     // Update the product
-    const updatedProduct = await Product.findByIdAndUpdate(existingProduct._id, productData, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(existingProduct._id, productData, { new: true, runValidators: true, upsert: true });
     return updatedProduct;
 };
 

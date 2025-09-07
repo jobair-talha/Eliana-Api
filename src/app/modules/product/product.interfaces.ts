@@ -28,6 +28,9 @@ export type IProduct = {
     sellsQuantity: number;
     totalSales: number;
     totalStock: number;
+    metaTitle?: string;
+    metaDescription?: string;
+    metaKeywords?: string;
 }
 export type DiscountType = 'percentage' | 'fixed';
 

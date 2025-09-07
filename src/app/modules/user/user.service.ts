@@ -26,7 +26,7 @@ const createStudent = async (
 ): Promise<IUser | null> => {
   // If password is not given,set default password
   if (!user.password) {
-    user.password = config.default_student_pass as string;
+    user.password = config.default_customer_pass as string;
   }
   // set role
   user.role = 'student';
