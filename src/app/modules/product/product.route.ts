@@ -32,6 +32,12 @@ router.get(
 );
 
 router.get(
+    "/frontend/:slug",
+    validateRequest(ProductValidation.getSingleProduct),
+    ProductController.getSingleHomeProducts
+);
+
+router.get(
     "/:slug",
     validateRequest(ProductValidation.getSingleProduct),
     ProductController.getSingleProductBySlug

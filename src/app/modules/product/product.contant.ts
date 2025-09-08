@@ -15,6 +15,7 @@ export const productFilterableFields = [
     "rating",
     "createdAt",
     "updatedAt",
+    "isPublished"
 ];
 
 export const productSearchableFields = [

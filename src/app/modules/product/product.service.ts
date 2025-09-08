@@ -42,6 +42,24 @@ const getSingleProductBySlug = async (slug: string) => {
     return product;
 };
 
+const getSingleHomeProducts = async (slug: string) => {
+    const product = await Product.findOne({ slug }).populate({
+        path: 'categories',
+        select: 'name slug',
+    });
+    if (!product) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
+    }
+    const relatedProducts = await Product.find({
+        categories: { $in: product.categories },
+        _id: { $ne: product._id }
+    }).sort({ createdAt: -1 }).limit(8).populate({
+        path: 'categories',
+        select: 'name slug',
+    });
+    return { product, relatedProducts };
+};
+
 const getAllProducts = async (
     filters: IProductFilters,
     paginationOptions: IPaginationOptions
@@ -128,4 +146,5 @@ export const ProductService = {
     deleteProduct,
     getAllProducts,
     getHomeProducts,
+    getSingleHomeProducts
 };

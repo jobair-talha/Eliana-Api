@@ -105,6 +105,18 @@ const getHomeProducts = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getSingleHomeProducts = catchAsync(async (req: Request, res: Response) => {
+    const { slug } = req.params;
+    const result = await ProductService.getSingleHomeProducts(slug);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Home product retrieved successfully!",
+        data: result,
+    });
+});
+
 const deleteProduct = catchAsync(async (req: Request, res: Response) => {
     const { slug } = req.params;
     await ProductService.deleteProduct(slug);
@@ -122,5 +134,6 @@ export const ProductController = {
     getSingleProductBySlug,
     deleteProduct,
     getAllProducts,
-    getHomeProducts
+    getHomeProducts,
+    getSingleHomeProducts
 };
