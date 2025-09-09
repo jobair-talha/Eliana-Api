@@ -9,6 +9,7 @@ export type ICategory = {
     metaTitle: { type: String, default: "" },
     metaDescription: { type: String, default: "" },
     isFeatured: { type: Boolean, default: false },
+    isPublished: { type: Boolean, default: true },
 };
 
 export interface NestedCategory extends ICategory {

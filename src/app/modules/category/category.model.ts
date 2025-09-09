@@ -6,7 +6,7 @@ const categorySchema = new Schema<ICategory, CategoryModel>(
     {
         parentId: {
             type: Schema.Types.ObjectId,
-            ref: "category",
+            ref: "Category",
             default: null,
         },
         name: {
@@ -41,6 +41,10 @@ const categorySchema = new Schema<ICategory, CategoryModel>(
         isFeatured: {
             type: Boolean,
             default: false,
+        },
+        isPublished: {
+            type: Boolean,
+            default: true,
         },
     },
     {

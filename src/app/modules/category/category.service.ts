@@ -31,6 +31,7 @@ const updateCategory = async (slug: string, payload: ICategory): Promise<ICatego
     const result = await Category.findOneAndUpdate({ slug }, payload, {
         new: true,
         runValidators: true,
+        upsert: true,
     });
     return result;
 };
