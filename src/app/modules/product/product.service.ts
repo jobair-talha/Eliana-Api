@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { SortOrder } from "mongoose";
+import { PipelineStage, SortOrder } from "mongoose";
 import ApiError from "../../../errors/ApiError";
 import { paginationHelpers } from "../../../helpers/paginationHelper";
 import { IGenericResponse } from "../../../interfaces/common";
@@ -130,6 +130,61 @@ const getHomeProducts = async () => {
     const bestSellingProducts = await Product.find({}).sort({ sellsQuantity: -1 }).limit(8);
     return { featuredProducts, newProducts, bestSellingProducts };
 };
+const getCategoryProducts = async (
+    categorySlug: string,
+    paginationOptions: IPaginationOptions
+): Promise<IGenericResponse<IProduct[]>> => {
+    const { limit, page, skip, sortBy, sortOrder } =
+        paginationHelpers.calculatePagination(paginationOptions);
+
+    const order: 1 | -1 = sortOrder === "asc" ? 1 : -1;
+
+    const sortStage: PipelineStage.Sort = {
+        $sort: sortBy ? { [sortBy]: order } : { createdAt: -1 }
+    };
+
+    const pipelineBase: PipelineStage[] = [
+        {
+            $lookup: {
+                from: "categories", // ✅ must match collection name
+                localField: "categories",
+                foreignField: "_id",
+                as: "categoryDetails",
+            },
+        },
+        {
+            $match: {
+                "categoryDetails.slug": categorySlug, // ✅ works for arrays
+            },
+        },
+    ];
+
+    const aggregation = await Product.aggregate([
+        ...pipelineBase,
+        {
+            $facet: {
+                data: [sortStage, { $skip: skip }, { $limit: limit }],
+                total: [{ $count: "count" }],
+            },
+        },
+    ]);
+
+    const data = aggregation[0]?.data || [];
+    const total = aggregation[0]?.total?.[0]?.count || 0;
+
+    if (data.length === 0) {
+        throw new ApiError(httpStatus.NOT_FOUND, "Products not found");
+    }
+
+    return {
+        meta: {
+            page,
+            limit,
+            total,
+        },
+        data,
+    };
+};
 
 const deleteProduct = async (slug: string) => {
     const product = await Product.findOneAndDelete({ slug });
@@ -146,5 +201,6 @@ export const ProductService = {
     deleteProduct,
     getAllProducts,
     getHomeProducts,
-    getSingleHomeProducts
+    getSingleHomeProducts,
+    getCategoryProducts
 };

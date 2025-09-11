@@ -38,6 +38,11 @@ router.get(
 );
 
 router.get(
+    "/category/:categorySlug",
+    ProductController.getCategoryProducts
+);
+
+router.get(
     "/:slug",
     validateRequest(ProductValidation.getSingleProduct),
     ProductController.getSingleProductBySlug

@@ -117,6 +117,20 @@ const getSingleHomeProducts = catchAsync(async (req: Request, res: Response) => 
     });
 });
 
+const getCategoryProducts = catchAsync(async (req: Request, res: Response) => {
+    const { categorySlug } = req.params;
+    const paginationOptions = pick(req.query, paginationFields);
+    const result = await ProductService.getCategoryProducts(categorySlug, paginationOptions);
+
+    sendResponse(res, {
+        statusCode: 200,
+        success: true,
+        message: "Category products retrieved successfully!",
+        data: result.data,
+        meta: result.meta,
+    });
+});
+
 const deleteProduct = catchAsync(async (req: Request, res: Response) => {
     const { slug } = req.params;
     await ProductService.deleteProduct(slug);
@@ -135,5 +149,6 @@ export const ProductController = {
     deleteProduct,
     getAllProducts,
     getHomeProducts,
-    getSingleHomeProducts
+    getSingleHomeProducts,
+    getCategoryProducts
 };
