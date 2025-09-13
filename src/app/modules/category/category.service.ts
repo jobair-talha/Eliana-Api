@@ -86,6 +86,11 @@ const getAllCategories = async (filters: ICategoryFilters, paginationOptions: IP
     };
 };
 
+const getCategories = async (): Promise<ICategory[]> => {
+    const result = await Category.find();
+    return result;
+}
+
 const getCategoryBySlug = async (slug: string): Promise<ICategory | null> => {
     const result = await Category.findOne({ slug });
     if (!result) {
@@ -112,4 +117,5 @@ export const CategoryService = {
     deleteCategory,
     updateCategory,
     getCategoryBySlug,
+    getCategories
 };

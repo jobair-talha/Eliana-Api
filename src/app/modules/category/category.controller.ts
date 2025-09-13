@@ -48,6 +48,15 @@ const getCategories = catchAsync(async (req: Request, res: Response) => {
         meta: result.meta,
     });
 });
+const getAllCategories = catchAsync(async (req: Request, res: Response) => {
+    const result = await CategoryService.getCategories();
+    sendResponse<ICategory[]>(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "All categories retrieved successfully!",
+        data: result,
+    });
+});
 const getCategory = catchAsync(async (req: Request, res: Response) => {
     const { slug } = req.params;
     const result = await CategoryService.getCategoryBySlug(slug);
@@ -94,4 +103,5 @@ export const CategoryController = {
     deleteCategory,
     updateCategory,
     getCategory,
+    getAllCategories
 };

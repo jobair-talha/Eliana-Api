@@ -10,6 +10,7 @@ const router = express.Router();
 const imageUpload = FileUpload("public/images/category/", allowedMimeTypes);
 
 router.get("/", CategoryController.getCategories);
+router.get("/all", CategoryController.getAllCategories);
 router.get("/:slug", CategoryController.getCategory);
 router.post(
     "/",
