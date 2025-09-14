@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 
 const app: Application = express();
 
-app.use(cors({ origin: ['http://localhost:5173'], credentials: true }));
+app.use(cors({ origin: ['http://localhost:5173', 'https://eliana.com.bd', "https://admin.eliana.com.bd"], credentials: true }));
 app.use(cookieParser());
 
 //parser
