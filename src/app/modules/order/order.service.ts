@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import mongoose, { SortOrder } from "mongoose";
+import { SortOrder } from "mongoose";
 import config from "../../../config";
 import ApiError from "../../../errors/ApiError";
 import { paginationHelpers } from "../../../helpers/paginationHelper";
@@ -13,71 +13,70 @@ import { Order } from "./order.model";
 import { createAutoSerial } from "./order.utills";
 
 
-const createCustomerOrder = async (orderData: Partial<IOrder>): Promise<IOrder> => {
-    const session = await mongoose.startSession();
+const createCustomerOrder = async (
+    orderData: Partial<IOrder>
+): Promise<IOrder> => {
     try {
-        let createdOrder: IOrder | null = null;
+        const serial = await createAutoSerial();
 
-        await session.withTransaction(async () => {
-            const serial = await createAutoSerial();
+        let userId = orderData.user as any;
 
-            let userId = orderData.user as any;
-
-            if (!userId) {
-                const customerMobile = orderData.customerInfo?.mobile;
-                if (!customerMobile) {
-                    throw new ApiError(httpStatus.BAD_REQUEST, "Customer mobile is required");
-                }
-
-                const customer = await Customer.findOneAndUpdate(
-                    { mobile: customerMobile },
-                    {
-                        $setOnInsert: {
-                            id: `CU-${Date.now()}`,
-                            name: orderData.customerInfo?.name,
-                            email: orderData.customerInfo?.email,
-                            mobile: customerMobile,
-                            address: orderData.customerInfo?.address,
-                        },
-                    },
-                    { new: true, upsert: true, session }
-                ).exec();
-
-                const user = await User.findOneAndUpdate(
-                    { customer: customer._id },
-                    {
-                        $setOnInsert: {
-                            id: `U-${Date.now()}`,
-                            role: "customer",
-                            password: config.default_customer_pass as string,
-                            customer: customer._id,
-                        },
-                    },
-                    { new: true, upsert: true, session }
-                ).exec();
-
-                userId = user._id;
+        if (!userId) {
+            const customerMobile = orderData.customerInfo?.mobile;
+            if (!customerMobile) {
+                throw new ApiError(httpStatus.BAD_REQUEST, "Customer mobile is required");
             }
 
-            const [orderDoc] = await Order.create(
-                [{ ...orderData, serial, user: userId }],
-                { session }
-            );
+            // Create or update Customer
+            const customer = await Customer.findOneAndUpdate(
+                { mobile: customerMobile },
+                {
+                    $setOnInsert: {
+                        id: `CU-${Date.now()}`,
+                        name: orderData.customerInfo?.name,
+                        email: orderData.customerInfo?.email,
+                        mobile: customerMobile,
+                        address: orderData.customerInfo?.address,
+                    },
+                },
+                { new: true, upsert: true }
+            ).exec();
 
-            createdOrder = orderDoc;
+            // Create or update User
+            const user = await User.findOneAndUpdate(
+                { customer: customer._id },
+                {
+                    $setOnInsert: {
+                        id: `U-${Date.now()}`,
+                        role: "customer",
+                        password: config.default_customer_pass as string,
+                        customer: customer._id,
+                    },
+                },
+                { new: true, upsert: true }
+            ).exec();
+
+            userId = user._id;
+        }
+
+        // Create Order (no session, no transaction)
+        const orderDoc = await Order.create({
+            ...orderData,
+            serial,
+            user: userId,
         });
 
-        if (!createdOrder) {
+        if (!orderDoc) {
             throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create order");
         }
 
-        return createdOrder;
+        return orderDoc;
     } catch (err) {
+        console.error(err);
         throw new ApiError(httpStatus.BAD_REQUEST, "Failed to create order");
-    } finally {
-        await session.endSession();
     }
 };
+
 
 const getAllOrders = async (
     filters: IOrderFilters,
