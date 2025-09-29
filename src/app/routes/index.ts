@@ -4,8 +4,10 @@ import { AcademicFacultyRoutes } from '../modules/academicFaculty/academicFacult
 import { AcademicSemesterRoutes } from '../modules/academicSemester/academicSemester.route';
 import { AdminRoutes } from '../modules/admin/admin.route';
 import { AuthRoutes } from '../modules/auth/auth.route';
+import { BoxRoutes } from '../modules/box/box.route';
 import { CategoryRoutes } from '../modules/category/category.route';
 import { CustomerRoutes } from '../modules/customer/customer.route';
+import { ExpenseHeadRoutes } from '../modules/expenseHead/expenseHead.route';
 import { FacultyRoutes } from '../modules/faculty/faculty.route';
 import { ManagementDepartmentRoutes } from '../modules/managementDepartment/managementDepartment.route';
 import { OrderRoutes } from '../modules/order/order.route';
@@ -31,6 +33,14 @@ const moduleRoutes = [
   {
     path: '/orders',
     route: OrderRoutes,
+  },
+  {
+    path: '/boxes',
+    route: BoxRoutes,
+  },
+  {
+    path: '/expense-heads',
+    route: ExpenseHeadRoutes,
   },
   {
     path: '/academic-semesters',
