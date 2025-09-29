@@ -9,6 +9,12 @@ export type IProduct = {
     shortDescription: string;
     sku: string;
     categories: Types.ObjectId | ICategory[];
+    boxs: Types.ObjectId[] | string[];
+    size: {
+        name: string;
+        price: number;
+        quantity: number;
+    }[];
     galleryImages: string[];
     thumbnail: string;
     regularPrice: number;
@@ -21,6 +27,7 @@ export type IProduct = {
     isFeatured: boolean;
     isNewProduct: boolean;
     isFlashSale: boolean;
+    isPosSuggestion: boolean;
     isPublished: boolean;
     isBestSelling: boolean;
     purchaseQuantity: number;

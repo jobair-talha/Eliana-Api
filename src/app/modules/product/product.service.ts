@@ -35,6 +35,9 @@ const getSingleProductBySlug = async (slug: string) => {
     const product = await Product.findOne({ slug }).populate({
         path: 'categories',
         select: 'name slug',
+    }).populate({
+        path: 'boxs.box',
+        select: 'name color',
     });
     if (!product) {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
@@ -46,6 +49,9 @@ const getSingleHomeProducts = async (slug: string) => {
     const product = await Product.findOne({ slug }).populate({
         path: 'categories',
         select: 'name slug',
+    }).populate({
+        path: 'boxs.box',
+        select: 'name color',
     });
     if (!product) {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
@@ -107,6 +113,9 @@ const getAllProducts = async (
         .populate({
             path: 'categories',
             select: 'name slug -_id',
+        }).populate({
+            path: 'boxs.box',
+            select: 'name color',
         })
         .sort(sortConditions)
         .skip(skip)

@@ -12,6 +12,16 @@ const productSchema = new Schema<IProduct, ProductModel>({
         ref: 'Category',
         required: true
     }],
+    boxs: [{
+        box: { type: Schema.Types.ObjectId, ref: 'Box', required: true },
+        quantity: { type: Number, required: true, default: 1 },
+        price: { type: Number, required: true, default: 0 }
+    }],
+    size: [{
+        name: { type: String, required: true },
+        price: { type: Number, required: true, default: 0 },
+        quantity: { type: Number, required: true, default: 1 }
+    }],
     shortDescription: { type: String, default: '' },
     galleryImages: [{ type: String, required: true }],
     thumbnail: { type: String, required: true },
@@ -34,6 +44,7 @@ const productSchema = new Schema<IProduct, ProductModel>({
     isInStock: { type: Boolean, required: true, default: true },
     isFeatured: { type: Boolean, required: true, default: false },
     isNewProduct: { type: Boolean, required: true, default: false },
+    isPosSuggestion: { type: Boolean, required: true, default: false },
     isFlashSale: { type: Boolean, required: true, default: false },
     isBestSelling: { type: Boolean, required: true, default: false },
     isPublished: { type: Boolean, required: true, default: true },

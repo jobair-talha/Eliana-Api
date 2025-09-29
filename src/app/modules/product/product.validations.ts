@@ -71,6 +71,7 @@ const createProduct = z.object({
         isNewProduct: toBoolean,
         isFlashSale: toBoolean,
         isPublished: toBoolean,
+        isPosSuggestion: toBoolean,
         purchaseQuantity: toNumber(0).optional(),
         totalPurchased: toNumber(0).optional(),
         sellsQuantity: toNumber(0).optional(),

@@ -27,6 +27,8 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
     }
     productData.categories = JSON.parse(productData.categories as unknown as string);
     productData.discount = JSON.parse(productData.discount as unknown as string);
+    productData.boxs = JSON.parse(productData.boxs as unknown as string);
+    productData.size = JSON.parse(productData.size as unknown as string);
     const result = await ProductService.createProduct(productData);
 
     sendResponse(res, {
@@ -52,6 +54,8 @@ const updateProduct = catchAsync(async (req: Request, res: Response) => {
     productData.slug = createSlug(productData.name);
     productData.categories = JSON.parse(productData.categories as unknown as string);
     productData.discount = JSON.parse(productData.discount as unknown as string);
+    productData.boxs = JSON.parse(productData.boxs as unknown as string);
+    productData.size = JSON.parse(productData.size as unknown as string);
     const result = await ProductService.updateProduct(productData);
 
     sendResponse(res, {

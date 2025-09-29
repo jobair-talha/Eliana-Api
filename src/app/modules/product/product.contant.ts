@@ -23,4 +23,5 @@ export const productSearchableFields = [
     "category",
     "brand",
     "description",
+    "sku"
 ];
