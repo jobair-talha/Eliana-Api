@@ -21,7 +21,7 @@ const orderSchema = new Schema<IOrder, OrderModel>({
     deliveryStatus: { type: String, enum: ['pending', 'shipped', 'delivered', 'returned'], default: 'pending' },
     orderStatus: {
         type: String,
-        enum: ['pending', 'processing', 'completed', 'cancelled', 'hold', "shipped", "delivered", "courier_delivered", "returned", "persial_delivered", "refunded", "courier_cancelled"],
+        enum: ['pending', 'confirm', 'processing', 'completed', 'cancelled', 'hold', "shipped", "delivered", "courier_delivered", "returned", "persial_delivered", "refunded", "courier_cancelled"],
         default: 'pending'
     },
     customerInfo: {
