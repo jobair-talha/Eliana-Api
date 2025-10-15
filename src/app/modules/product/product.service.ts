@@ -51,7 +51,7 @@ const getSingleHomeProducts = async (slug: string) => {
         select: 'name slug',
     }).populate({
         path: 'boxs.box',
-        select: 'name color',
+        select: 'name color image stock',
     });
     if (!product) {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
