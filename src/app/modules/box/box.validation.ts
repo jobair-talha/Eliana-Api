@@ -9,8 +9,8 @@ const createNewBoxZodSchema = z.object({
             required_error: 'Color is required',
         }),
         stock: z.number().optional(),
-        purchasePrice: z.number().optional(),
-        sellingPrice: z.number().optional(),
+        purchasePrice: z.string().optional(),
+        sellingPrice: z.string().optional(),
     }),
 });
 
@@ -19,9 +19,9 @@ const updateBoxZodSchema = z.object({
         name: z.string().optional(),
         color: z.string().optional(),
         stock: z.number().optional(),
-        purchasePrice: z.number().optional(),
-        sellingPrice: z.number().optional(),
-    }).refine((data) => Object.keys(data).length > 0, { message: "At least one field must be provided for update" }),
+        purchasePrice: z.string().optional(),
+        sellingPrice: z.string().optional(),
+    }),
 });
 
 export const BoxValidation = {

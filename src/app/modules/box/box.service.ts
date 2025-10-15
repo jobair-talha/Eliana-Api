@@ -73,6 +73,7 @@ const createNewBox = async (payload: IBox): Promise<IBox> => {
 };
 
 const updateBox = async (id: string, payload: IBox): Promise<IBox | null> => {
+    console.log(payload)
     const isExit = await Box.findById(id);
     if (!isExit) {
         throw new ApiError(httpStatus.NOT_FOUND, "Box not found");

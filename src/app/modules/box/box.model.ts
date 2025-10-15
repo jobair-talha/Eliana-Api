@@ -8,6 +8,10 @@ const boxSchema = new Schema<IBox, BoxModel>(
             type: String,
             trim: true,
         },
+        image: {
+            type: String,
+            required: true,
+        },
         color: {
             type: String,
             required: true,

@@ -10,6 +10,9 @@ import { BoxService } from "./box.service";
 
 const createBox = catchAsync(async (req: Request, res: Response) => {
     const { ...boxData } = req.body;
+    if (req.file) {
+        boxData.image = req.file.filename;
+    }
     const result = await BoxService.createNewBox(boxData);
     sendResponse<IBox>(res, {
         statusCode: httpStatus.OK,
@@ -48,6 +51,9 @@ const getAllBoxes = catchAsync(async (req: Request, res: Response) => {
 const updateBox = catchAsync(async (req: Request, res: Response) => {
     const { id } = req.params;
     const updatedData = req.body;
+    if (req.file) {
+        updatedData.image = req.file.filename;
+    }
     const result = await BoxService.updateBox(id, updatedData);
     sendResponse<IBox>(res, {
         statusCode: httpStatus.OK,
