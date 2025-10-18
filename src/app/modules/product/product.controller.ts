@@ -27,8 +27,8 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
     }
     productData.categories = JSON.parse(productData.categories as unknown as string);
     productData.discount = JSON.parse(productData.discount as unknown as string);
-    productData.boxs = JSON.parse(productData.boxs as unknown as string);
-    productData.size = JSON.parse(productData.size as unknown as string);
+    productData.boxes = JSON.parse(productData.boxes as unknown as string);
+    productData.sizes = JSON.parse(productData.sizes as unknown as string);
     const result = await ProductService.createProduct(productData);
 
     sendResponse(res, {
@@ -42,6 +42,8 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
 
 const updateProduct = catchAsync(async (req: Request, res: Response) => {
     const { ...productData } = req.body;
+    const { slug } = req.params;
+    productData.slug = slug;
     if (req.files) {
         const files = req.files as { [fieldname: string]: Express.Multer.File[] };
         if (files['thumbnail'] && files['thumbnail'][0]) {
@@ -51,11 +53,10 @@ const updateProduct = catchAsync(async (req: Request, res: Response) => {
             productData.galleryImages = files['galleryImages'].map(file => file.filename);
         }
     }
-    productData.slug = createSlug(productData.name);
     productData.categories = JSON.parse(productData.categories as unknown as string);
     productData.discount = JSON.parse(productData.discount as unknown as string);
-    productData.boxs = JSON.parse(productData.boxs as unknown as string);
-    productData.size = JSON.parse(productData.size as unknown as string);
+    productData.boxes = JSON.parse(productData.boxes as unknown as string);
+    productData.sizes = JSON.parse(productData.sizes as unknown as string);
     const result = await ProductService.updateProduct(productData);
 
     sendResponse(res, {

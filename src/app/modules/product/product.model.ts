@@ -12,16 +12,18 @@ const productSchema = new Schema<IProduct, ProductModel>({
         ref: 'Category',
         required: true
     }],
-    boxs: [{
-        box: { type: Schema.Types.ObjectId, ref: 'Box', required: true },
-        quantity: { type: Number, required: true, default: 1 },
-        price: { type: Number, required: true, default: 0 }
+    boxes: [{
+        box: { type: Schema.Types.ObjectId, ref: 'Box' },
+        price: { type: Number, required: true, default: 0 },
+        isSelected: { type: Boolean, required: true, default: false }
     }],
-    size: [{
+    sizes: [{
         name: { type: String, required: true },
         price: { type: Number, required: true, default: 0 },
         quantity: { type: Number, required: true, default: 1 }
     }],
+    boxTitle: { type: String, default: '' },
+    sizeTitle: { type: String, default: '' },
     shortDescription: { type: String, default: '' },
     galleryImages: [{ type: String, required: true }],
     thumbnail: { type: String, required: true },
@@ -32,7 +34,8 @@ const productSchema = new Schema<IProduct, ProductModel>({
         discountType: {
             type: String,
             enum: ['percentage', 'fixed'],
-            required: true
+            required: true,
+            default: 'fixed'
         },
         discountValue: {
             type: Number,
@@ -56,6 +59,8 @@ const productSchema = new Schema<IProduct, ProductModel>({
     metaTitle: { type: String, default: '' },
     metaDescription: { type: String, default: '' },
     metaKeywords: { type: String, default: '' },
+    policy: { type: String, default: '' },
+    sizeGuide: { type: String, default: '' },
 
 }, {
     timestamps: true,

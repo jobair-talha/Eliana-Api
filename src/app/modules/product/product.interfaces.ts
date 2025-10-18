@@ -9,12 +9,14 @@ export type IProduct = {
     shortDescription: string;
     sku: string;
     categories: Types.ObjectId | ICategory[];
-    boxs: Types.ObjectId[] | string[];
-    size: {
+    boxes: Types.ObjectId[] | string[];
+    sizes: {
         name: string;
         price: number;
         quantity: number;
     }[];
+    boxTitle: string;
+    sizeTitle: string;
     galleryImages: string[];
     thumbnail: string;
     regularPrice: number;
@@ -38,6 +40,8 @@ export type IProduct = {
     metaTitle?: string;
     metaDescription?: string;
     metaKeywords?: string;
+    policy?: string;
+    sizeGuide?: string;
 }
 export type DiscountType = 'percentage' | 'fixed';
 

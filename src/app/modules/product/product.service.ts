@@ -36,7 +36,7 @@ const getSingleProductBySlug = async (slug: string) => {
         path: 'categories',
         select: 'name slug',
     }).populate({
-        path: 'boxs.box',
+        path: 'boxes.box',
         select: 'name color',
     });
     if (!product) {
@@ -50,7 +50,7 @@ const getSingleHomeProducts = async (slug: string) => {
         path: 'categories',
         select: 'name slug',
     }).populate({
-        path: 'boxs.box',
+        path: 'boxes.box',
         select: 'name color image stock',
     });
     if (!product) {
@@ -114,7 +114,7 @@ const getAllProducts = async (
             path: 'categories',
             select: 'name slug -_id',
         }).populate({
-            path: 'boxs.box',
+            path: 'boxes.box',
             select: 'name color',
         })
         .sort(sortConditions)
