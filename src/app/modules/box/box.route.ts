@@ -5,7 +5,7 @@ import { allowedMimeTypes } from './box.constant';
 import { BoxController } from './box.controller';
 import { BoxValidation } from './box.validation';
 const router = express.Router();
-const imageUpload = FileUpload("public/images/boxs/", allowedMimeTypes);
+const imageUpload = FileUpload("public/images/boxes/", allowedMimeTypes);
 
 router.post(
     '/',
