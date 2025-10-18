@@ -17,6 +17,7 @@ const orderSchema = new Schema<IOrder, OrderModel>({
     paymentMethod: { type: String, required: true },
     paymentStatus: { type: String, enum: ['pending', 'paid', 'failed', 'refunded'], default: 'pending' },
     payAmount: { type: Number, required: true, default: 0 },
+    revenue: { type: Number, required: true, default: 0 },
     remainingPayableAmount: { type: Number, required: true, default: 0 },
     deliveryStatus: { type: String, enum: ['pending', 'shipped', 'delivered', 'returned'], default: 'pending' },
     orderStatus: {
