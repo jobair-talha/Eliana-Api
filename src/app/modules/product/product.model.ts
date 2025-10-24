@@ -68,18 +68,14 @@ const productSchema = new Schema<IProduct, ProductModel>({
         virtuals: true,
     },
 });
-productSchema.pre('save', function (next) {
+/* productSchema.pre('save', function (next) {
     if (this.discount && this.discount.discountValue > 0) {
         if (this.discount.discountType === 'percentage') {
             this.salePrice = this.regularPrice - (this.regularPrice * this.discount.discountValue / 100);
         } else if (this.discount.discountType === 'fixed') {
             this.salePrice = this.regularPrice - this.discount.discountValue;
         }
-        if (this.salePrice < 0) {
-            this.salePrice = 0;
-        }
     }
     next();
-});
-
+}); */
 export const Product = model<IProduct, ProductModel>("Product", productSchema);

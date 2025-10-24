@@ -42,6 +42,10 @@ const createProduct = catchAsync(async (req: Request, res: Response) => {
 
 const updateProduct = catchAsync(async (req: Request, res: Response) => {
     const { ...productData } = req.body;
+    productData.regularPrice = parseFloat(productData.regularPrice);
+    if (productData.salePrice) {
+        productData.salePrice = parseFloat(productData.salePrice);
+    }
     const { slug } = req.params;
     productData.slug = slug;
     if (req.files) {

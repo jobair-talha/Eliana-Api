@@ -27,7 +27,7 @@ const updateProduct = async (productData: IProduct) => {
         throw new ApiError(httpStatus.NOT_FOUND, "Product not found");
     }
     // Update the product
-    const updatedProduct = await Product.findByIdAndUpdate(existingProduct._id, productData, { new: true, runValidators: true, upsert: true });
+    const updatedProduct = await Product.findByIdAndUpdate(existingProduct._id, productData, { new: true, upsert: true });
     return updatedProduct;
 };
 
@@ -62,6 +62,9 @@ const getSingleHomeProducts = async (slug: string) => {
     }).sort({ createdAt: -1 }).limit(8).populate({
         path: 'categories',
         select: 'name slug',
+    }).populate({
+        path: 'boxes.box',
+        select: 'name color image stock',
     });
     return { product, relatedProducts };
 };
@@ -134,12 +137,14 @@ const getAllProducts = async (
 };
 
 const getHomeProducts = async () => {
-    const featuredProducts = await Product.find({ isFeatured: true }).sort({ createdAt: -1 }).limit(8);
-    const newProducts = await Product.find({ isNewProduct: true }).sort({ createdAt: -1 }).limit(8);
-    const bestSellingProducts = await Product.find({}).sort({ sellsQuantity: -1 }).limit(8);
+    const featuredProducts = await Product.find({ isFeatured: true }).sort({ createdAt: -1 }).populate({ path: 'categories', select: 'name slug' }).populate({ path: 'boxes.box', select: 'name color image stock' }).select("-description -metaTitle -metaKeywords -metaDescription").limit(8);
+
+    const newProducts = await Product.find({ isNewProduct: true }).sort({ createdAt: -1 }).populate({ path: 'categories', select: 'name slug' }).populate({ path: 'boxes.box', select: 'name color image stock' }).select("-description -metaTitle -metaKeywords -metaDescription").limit(8);
+
+    const bestSellingProducts = await Product.find({}).sort({ sellsQuantity: -1 }).populate({ path: 'categories', select: 'name slug' }).populate({ path: 'boxes.box', select: 'name color image stock' }).select("-description -metaTitle -metaKeywords -metaDescription").limit(8);
     return { featuredProducts, newProducts, bestSellingProducts };
 };
-const getCategoryProducts = async (
+export const getCategoryProducts = async (
     categorySlug: string,
     paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IProduct[]>> => {
@@ -149,21 +154,67 @@ const getCategoryProducts = async (
     const order: 1 | -1 = sortOrder === "asc" ? 1 : -1;
 
     const sortStage: PipelineStage.Sort = {
-        $sort: sortBy ? { [sortBy]: order } : { createdAt: -1 }
+        $sort: sortBy ? { [sortBy]: order } : { createdAt: -1 },
     };
 
     const pipelineBase: PipelineStage[] = [
         {
             $lookup: {
-                from: "categories", // ✅ must match collection name
+                from: "categories",
                 localField: "categories",
                 foreignField: "_id",
-                as: "categoryDetails",
+                as: "categories",
             },
         },
+        // ✅ Match products by category slug
         {
             $match: {
-                "categoryDetails.slug": categorySlug, // ✅ works for arrays
+                "categories.slug": categorySlug,
+            },
+        },
+        // ✅ Join boxes data (populate boxes.box)
+        {
+            $lookup: {
+                from: "boxes",
+                localField: "boxes.box",
+                foreignField: "_id",
+                as: "boxDetails",
+            },
+        },
+        // ✅ Merge box details with boxes array
+        {
+            $addFields: {
+                boxes: {
+                    $map: {
+                        input: "$boxes",
+                        as: "b",
+                        in: {
+                            $mergeObjects: [
+                                "$$b",
+                                {
+                                    box: {
+                                        $arrayElemAt: [
+                                            {
+                                                $filter: {
+                                                    input: "$boxDetails",
+                                                    as: "bd",
+                                                    cond: { $eq: ["$$bd._id", "$$b.box"] },
+                                                },
+                                            },
+                                            0,
+                                        ],
+                                    },
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
+        },
+        // ✅ Remove temporary lookup
+        {
+            $project: {
+                boxDetails: 0,
             },
         },
     ];
@@ -185,13 +236,37 @@ const getCategoryProducts = async (
         throw new ApiError(httpStatus.NOT_FOUND, "Products not found");
     }
 
+    const formattedData = data.map((p: any) => ({
+        ...p,
+        id: p._id?.toString(),
+        categories: p.categories?.map((cat: any) => ({
+            id: cat._id?.toString(),
+            _id: cat._id,
+            name: cat.name,
+            slug: cat.slug,
+        })),
+        boxes: p.boxes?.map((b: any) => ({
+            ...b,
+            box: b.box
+                ? {
+                    id: b.box._id?.toString(),
+                    _id: b.box._id,
+                    name: b.box.name,
+                    color: b.box.color,
+                    image: b.box.image,
+                    stock: b.box.stock,
+                }
+                : null,
+        })),
+    }));
+
     return {
         meta: {
             page,
             limit,
             total,
         },
-        data,
+        data: formattedData,
     };
 };
 
