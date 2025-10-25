@@ -147,6 +147,14 @@ const updateOrder = async (id: string, orderData: Partial<IOrder>): Promise<IOrd
     return result;
 };
 
+const updateOrderStatus = async (id: string, orderStatus: string): Promise<IOrder | null> => {
+    const result = await Order.findByIdAndUpdate(
+        id,
+        { orderStatus },
+        { new: true }
+    );
+    return result;
+}
 const deleteOrder = async (id: string): Promise<IOrder | null> => {
     const result = await Order.findByIdAndDelete(id);
     return result;
@@ -157,5 +165,6 @@ export const OrderService = {
     getAllOrders,
     getOrderById,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    updateOrderStatus
 };

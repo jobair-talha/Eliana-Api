@@ -24,4 +24,13 @@ router.get(
     OrderController.getAllOrders
 );
 
+router.patch(
+    "/:id/status",
+    /* auth(
+        ENUM_USER_ROLE.SUPER_ADMIN,
+        ENUM_USER_ROLE.ADMIN,
+    ), */
+    OrderController.updateOrderStatus
+);
+
 export const OrderRoutes = router;
