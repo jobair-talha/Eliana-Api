@@ -9,4 +9,5 @@ export const orderFilterableFields = [
     "paymentStatus",
     "customerInfo.name",
     "customerInfo.mobile",
+    "orderStatus",
 ];

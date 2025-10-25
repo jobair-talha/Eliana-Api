@@ -166,13 +166,11 @@ export const getCategoryProducts = async (
                 as: "categories",
             },
         },
-        // ✅ Match products by category slug
         {
             $match: {
                 "categories.slug": categorySlug,
             },
         },
-        // ✅ Join boxes data (populate boxes.box)
         {
             $lookup: {
                 from: "boxes",
@@ -181,7 +179,6 @@ export const getCategoryProducts = async (
                 as: "boxDetails",
             },
         },
-        // ✅ Merge box details with boxes array
         {
             $addFields: {
                 boxes: {
@@ -211,7 +208,6 @@ export const getCategoryProducts = async (
                 },
             },
         },
-        // ✅ Remove temporary lookup
         {
             $project: {
                 boxDetails: 0,

@@ -16,6 +16,7 @@ import { createAutoSerial } from "./order.utills";
 const createCustomerOrder = async (
     orderData: Partial<IOrder>
 ): Promise<IOrder> => {
+    console.log(orderData)
     try {
         const serial = await createAutoSerial();
 
